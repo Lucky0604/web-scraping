@@ -1,0 +1,12 @@
+#-*- coding: utf-8 -*-
+
+# create a csv file by using python csv lib
+import csv
+csvFile = open('./files/test.csv', 'wt')
+try:
+    writer = csv.writer(csvFile)
+    writer.writerow(('number', 'number plus 2', 'number times 2'))
+    for i in range(10):
+        writer.writerow((i, i + 2, i * 2))
+finally:
+    csvFile.close()
