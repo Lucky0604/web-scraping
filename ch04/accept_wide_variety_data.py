@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import datetime
 import random
 import pymysql
+import re
 
 # connect database
 conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='lovelirui', db='mysql', charset='utf8')
@@ -19,7 +20,7 @@ def store(title, content):
 def getLinks(articleUrl):
     html = urlopen('http://en.wikipedia.org' + articleUrl)
     bsObj = BeautifulSoup(html, 'html.parser')
-    title = bsObj.find('h1').find('span').get_text()
+    title = bsObj.find('h1').get_text()
     content = bsObj.find('div', {'id': 'mw-content-text'}).find('p').get_text()
     store(title, content)
     return bsObj.find('div', {'id': 'bodyContent'}).findAll('a', href=re.compile('^(/wiki/)((?!:).)*$'))
